@@ -125,9 +125,31 @@ function deleteHandler(req,res){
     })
 }
 
+server.put('/:id',updateHandler)
 
-
-
+function updateHandler(req,res){
+    let id=req.params.id;
+    let { colorName, colorImage } = req.body
+    let email =req.query.email
+myOwnerModal.findOne({email:email},(error,items)=>{
+    if (error) {
+        res.status(500).send('not')
+        
+    }else{
+        items.color.map(color=>{
+            if(color._id.toString() === id){
+                color.name=colorName;
+                color.image=colorImage;
+                return coloro
+            }else{
+                return color
+            }
+        })
+        items.save();
+        res.status(400).send(items.color)
+    }
+})
+}
 
 
 server.listen(PORT, () => {
